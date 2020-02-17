@@ -182,7 +182,21 @@ class Graph:
 
         This should be done using recursion.
         """
-        # 
+        # check if start vertex equals target vertex
+        if starting_vertex == destination_vertex:
+            # if so, return as list
+            return [starting_vertex]
+        # check if start vertex is visited
+        # if not,
+        if starting_vertex not in visited:
+            # mark as visited
+            visited.add(starting_vertex)
+            # call self on neighbors
+            for neighbor in self.get_neighbors(starting_vertex):
+                path = self.dfs_recursive(neighbor, destination_vertex)
+                if path is not None:
+                    return [starting_vertex] + path
+        return None
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -251,4 +265,5 @@ if __name__ == '__main__':
         [1, 2, 4, 7, 6]
     '''
     print(graph.dfs(1, 6))
+    print("\n\ndfs recursive")
     print(graph.dfs_recursive(1, 6))
