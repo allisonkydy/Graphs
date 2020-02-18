@@ -84,13 +84,15 @@ class Graph:
 
 
 
-    def dft_recursive(self, starting_vertex, visited=set()):
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
+        if visited is None:
+            visited = set()
         # check if the node is visited
         # hint: https://docs.python-guide.org/writing/gotchas/
             # default args
@@ -102,7 +104,7 @@ class Graph:
             print(starting_vertex)
             # call dft_recursive on each child
             for neighbor in self.get_neighbors(starting_vertex):
-                self.dft_recursive(neighbor)
+                self.dft_recursive(neighbor, visited)
 
 
     def bfs(self, starting_vertex, destination_vertex):
@@ -174,7 +176,7 @@ class Graph:
                     p_copy.append(neighbor)
                     s.push(p_copy)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex, visited=set()):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -182,6 +184,8 @@ class Graph:
 
         This should be done using recursion.
         """
+        if visited is None:
+            visited = set()
         # check if start vertex equals target vertex
         if starting_vertex == destination_vertex:
             # if so, return as list
@@ -193,7 +197,7 @@ class Graph:
             visited.add(starting_vertex)
             # call self on neighbors
             for neighbor in self.get_neighbors(starting_vertex):
-                path = self.dfs_recursive(neighbor, destination_vertex)
+                path = self.dfs_recursive(neighbor, destination_vertex, visited)
                 if path is not None:
                     return [starting_vertex] + path
         return None
