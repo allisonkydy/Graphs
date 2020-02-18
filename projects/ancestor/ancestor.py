@@ -19,6 +19,8 @@ def build_graph(ancestors):
         # insert using the child as key and parent as value
         if pair[1] not in graph:
             graph[pair[1]] = set()
+        if pair[0] not in graph:
+            graph[pair[0]] = set()
         graph[pair[1]].add(pair[0])
     return graph
 
@@ -40,7 +42,7 @@ def earliest_ancestor(ancestors, starting_node):
         node = path[-1]
         parents = ancestor_graph.get(node)
         # check if node has parents
-        if parents is not None:
+        if len(parents) > 0:
             # if so, push all parents to stack
             for parent in parents:
                 # copy path and add parent to new path
