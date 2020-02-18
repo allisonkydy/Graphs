@@ -190,13 +190,12 @@ class Graph:
         if starting_vertex == destination_vertex:
             # if so, return as list
             return [starting_vertex]
-        # check if start vertex is visited
-        # if not,
-        if starting_vertex not in visited:
-            # mark as visited
-            visited.add(starting_vertex)
-            # call self on neighbors
-            for neighbor in self.get_neighbors(starting_vertex):
+        # mark as visited
+        visited.add(starting_vertex)
+        # call self on neighbors
+        for neighbor in self.get_neighbors(starting_vertex):
+            # check if neighbor is not visited
+            if neighbor not in visited:
                 path = self.dfs_recursive(neighbor, destination_vertex, visited)
                 if path is not None:
                     return [starting_vertex] + path
