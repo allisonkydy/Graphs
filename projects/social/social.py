@@ -119,9 +119,38 @@ class SocialGraph:
 
 
 if __name__ == '__main__':
+    # sg = SocialGraph()
+    # sg.populate_graph(10, 2)
+    # print("\nusers\n", sg.users)
+    # print("\nfriendships\n", sg.friendships)
+    # connections = sg.get_all_social_paths(1)
+    # print("\nconnections\n", connections)
+
+    # for answer to question 2
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
-    print("\nusers\n", sg.users)
+    sg.populate_graph(1000, 5)
     print("\nfriendships\n", sg.friendships)
     connections = sg.get_all_social_paths(1)
     print("\nconnections\n", connections)
+
+    users = 0
+    degree_of_separation = 0
+    for i in range(1, 1001):
+        if i in connections:
+            users += 1
+            degree_of_separation += len(connections[i])
+    percentage = (users / 1000) * 100
+    avg_degree_of_separation = degree_of_separation / users
+    print(f"\npercentage of users in extended social network of user 1: {percentage}%")
+    print(f"\naverage degree of separation between user and users in network: {avg_degree_of_separation}")
+
+# Questions
+
+# 1. To create 100 users with an average of 10 friends each, how many times would you need to call add_friendship()? Why?
+
+# 500 times. 1000 total friendships need to be generated (100 users * 10 friends each), and calling add_friendships creates a bi-directional friendship - essentially creates two friendships - so calling it 500 times will create 1000 friendships. 
+
+# 2. If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended social network? What is the average degree of separation between a user and those in his/her extended network?
+
+# About 99% of other users will be in a particular user's extended social network (sometimes there will be a user without any connections). The average degree of separation is about 5 or 6 depending on the network. So overall, all or nearly all users will be connected to all other users through their extended network, and the average degree of separation is about equal to the average number of friends per user.
+
