@@ -129,9 +129,9 @@ if __name__ == '__main__':
     # for answer to question 2
     sg = SocialGraph()
     sg.populate_graph(1000, 5)
-    print("\nfriendships\n", sg.friendships)
+    # print("\nfriendships\n", sg.friendships)
     connections = sg.get_all_social_paths(1)
-    print("\nconnections\n", connections)
+    # print("\nconnections\n", connections)
 
     users = 0
     degree_of_separation = 0
@@ -152,5 +152,5 @@ if __name__ == '__main__':
 
 # 2. If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended social network? What is the average degree of separation between a user and those in his/her extended network?
 
-# About 99% of other users will be in a particular user's extended social network (sometimes there will be a user without any connections). The average degree of separation is about 5 or 6 depending on the network. So overall, all or nearly all users will be connected to all other users through their extended network, and the average degree of separation is about equal to the average number of friends per user.
+# About 99 - 100% of other users will be in a particular user's extended social network (sometimes there will be a user without any connections). The average degree of separation is about 5 - 6 depending on the network. 
 
