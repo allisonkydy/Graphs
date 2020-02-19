@@ -1,13 +1,16 @@
 class Stack():
     def __init__(self):
         self.stack = []
+
     def push(self, value):
         self.stack.append(value)
+
     def pop(self):
         if self.size() > 0:
             return self.stack.pop()
         else:
             return None
+
     def size(self):
         return len(self.stack)
 
@@ -24,6 +27,7 @@ def build_graph(ancestors):
         graph[pair[1]].add(pair[0])
     return graph
 
+
 def earliest_ancestor(ancestors, starting_node):
     # create graph
     ancestor_graph = build_graph(ancestors)
@@ -31,10 +35,9 @@ def earliest_ancestor(ancestors, starting_node):
     s = Stack()
     # push path to starting node to stack
     s.push([starting_node])
-    # keep track of earliest ancestor
-    earliest = None
-    longest_path = None
-    # while the stack has nodes
+    # keep track of path to earliest ancestor
+    earliest_path = None
+    # while the stack is not empty
     while s.size() > 0:
         # pop off a path from the stack
         path = s.pop()
@@ -49,22 +52,21 @@ def earliest_ancestor(ancestors, starting_node):
                 path_copy = path.copy()
                 path_copy.append(parent)
                 s.push(path_copy)
-        # if not, node is an ancestor
-        else:
-            if node == starting_node:
-                continue
-            # if earliest is None OR 
-            # longest_path is less than current path OR 
-            # longest path is equal to the current path AND earliest is greater than current node value
-            if earliest is None or longest_path < len(path) or (longest_path == len(path) and earliest > node):
-                # set earliest to current node
-                earliest = node
-                # set longest path to length of path
-                longest_path = len(path)
+        elif node == starting_node:
+            continue
+        # if no earliest ancestor saved yet OR
+        # length of path to ancestor is less than current path OR
+        # length of path to ancestor is equal to the current path AND earliest node value is greater than current node value
+        elif earliest_path is None or len(earliest_path) < len(path) or (len(earliest_path) == len(path) and earliest_path[-1] > node):
+            # set earliest path to path to current node
+            earliest_path = path
 
     # check if starting node has no parents
-    if earliest is None:
+    if earliest_path is None:
         return -1
 
-    return earliest
-                    
+    return earliest_path[-1]
+
+
+# a1 = [(2, 1), (3, 1), (5, 2), (8, 3), (6, 8)]
+# print(earliest_ancestor(a1, 1))
