@@ -67,21 +67,38 @@ class SocialGraph:
             self.add_user(f"User {i}")
 
         # Create friendships
+
         # create a list of all possible friendships
-        possible_friendships = []
-        for user_id in self.users:
-            for friend_id in range(user_id + 1, self.last_id + 1):
-                possible_friendships.append((user_id, friend_id))
+        # possible_friendships = []
+        # for user_id in self.users:
+        #     for friend_id in range(user_id + 1, self.last_id + 1):
+        #         possible_friendships.append((user_id, friend_id))
         # shuffle the list
-        random.shuffle(possible_friendships)
+        # random.shuffle(possible_friendships)
+
+
         # grab the first n friendship pairs from list and create those friendships
             # avg_friendships = total_friendships / num_users
             # total_friendships = avg_friendships * num_users
             # n = total_friendships // 2
             # n = avg_friendships * num_users // 2
-        for i in range(num_users * avg_friendships // 2):
-            friendship = possible_friendships[i]
-            self.add_friendship(friendship[0], friendship[1])
+        # for i in range(num_users * avg_friendships // 2):
+        #     friendship = possible_friendships[i]
+        #     self.add_friendship(friendship[0], friendship[1])
+
+        # stretch---
+        total_friendships = num_users * avg_friendships // 2
+        counter = 0
+        # generate random friendships
+        for i in range(total_friendships):
+            user = random.randint(1, num_users)
+            friend = random.randint(1, num_users)
+
+            while user == friend or friend in self.friendships[user] or user in self.friendships[friend]:
+                user = random.randint(1, num_users)
+                friend = random.randint(1, num_users)
+
+            self.add_friendship(user, friend)
 
     def get_all_social_paths(self, user_id):
         """
@@ -119,30 +136,30 @@ class SocialGraph:
 
 
 if __name__ == '__main__':
-    # sg = SocialGraph()
-    # sg.populate_graph(10, 2)
-    # print("\nusers\n", sg.users)
-    # print("\nfriendships\n", sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print("\nconnections\n", connections)
+    sg = SocialGraph()
+    sg.populate_graph(10, 2)
+    print("\nusers\n", sg.users)
+    print("\nfriendships\n", sg.friendships)
+    connections = sg.get_all_social_paths(1)
+    print("\nconnections\n", connections)
 
     # for answer to question 2
-    sg = SocialGraph()
-    sg.populate_graph(1000, 5)
-    # print("\nfriendships\n", sg.friendships)
-    connections = sg.get_all_social_paths(1)
-    # print("\nconnections\n", connections)
+    # sg = SocialGraph()
+    # sg.populate_graph(1000, 5)
+    # # print("\nfriendships\n", sg.friendships)
+    # connections = sg.get_all_social_paths(1)
+    # # print("\nconnections\n", connections)
 
-    users = 0
-    degree_of_separation = 0
-    for i in range(1, 1001):
-        if i in connections:
-            users += 1
-            degree_of_separation += len(connections[i])
-    percentage = (users / 1000) * 100
-    avg_degree_of_separation = degree_of_separation / users
-    print(f"\npercentage of users in extended social network of user 1: {percentage}%")
-    print(f"\naverage degree of separation between user and users in network: {avg_degree_of_separation}")
+    # users = 0
+    # degree_of_separation = 0
+    # for i in range(1, 1001):
+    #     if i in connections:
+    #         users += 1
+    #         degree_of_separation += len(connections[i])
+    # percentage = (users / 1000) * 100
+    # avg_degree_of_separation = degree_of_separation / users
+    # print(f"\npercentage of users in extended social network of user 1: {percentage}%")
+    # print(f"\naverage degree of separation between user and users in network: {avg_degree_of_separation}")
 
 # Questions
 
