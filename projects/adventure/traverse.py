@@ -102,8 +102,11 @@ def traverse_map(player):
                     # break loop
                     break
 
-                else:
+                # check if room has been visisted
+                if room not in visited:
                 # if not,
+                    # mark as visited
+                    visited.add(room)
                     # enqueue paths to neighboring rooms
                     for e in graph[room]:
                         p_copy = p.copy()
