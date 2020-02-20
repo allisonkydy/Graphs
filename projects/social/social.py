@@ -88,7 +88,6 @@ class SocialGraph:
 
         # stretch---
         total_friendships = num_users * avg_friendships // 2
-        counter = 0
         # generate random friendships
         for i in range(total_friendships):
             user = random.randint(1, num_users)
@@ -150,14 +149,12 @@ if __name__ == '__main__':
     # connections = sg.get_all_social_paths(1)
     # # print("\nconnections\n", connections)
 
-    # users = 0
     # degree_of_separation = 0
     # for i in range(1, 1001):
     #     if i in connections:
-    #         users += 1
     #         degree_of_separation += len(connections[i])
-    # percentage = (users / 1000) * 100
-    # avg_degree_of_separation = degree_of_separation / users
+    # percentage = (len(connections) / 1000) * 100
+    # avg_degree_of_separation = degree_of_separation / len(connections)
     # print(f"\npercentage of users in extended social network of user 1: {percentage}%")
     # print(f"\naverage degree of separation between user and users in network: {avg_degree_of_separation}")
 
